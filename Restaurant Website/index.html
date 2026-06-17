@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trench Restaurant</title>
-    <link rel="stylesheet" href="Trench Restaurant web.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -19,8 +19,32 @@
             <li><a href="About restaurant.html" target="_blank">About</a></li>
            
         </ul>
-        
+        <div class="cart-icon">
+            <span class="cart-count">0</span>
+            🛒
+        </div>
+
     </nav>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <button class="close-cart" onclick="toggleCart()">&times;</button>
+            </div>
+            <div id="cartItems" class="cart-items">
+                <p class="empty-cart">Your cart is empty</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <strong>Total: Ksh <span id="totalPrice">0</span></strong>
+                </div>
+                <button class="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
     <section class="hero">
         
     <div class="hero-content">
@@ -81,89 +105,78 @@
         <h2>Delicious Dishes Await You</h2>
         <p>Discover our delicious menu, crafted with fresh ingredients and bold flavors. From savory dishes to sweet treats, we have something for everyone.</p>
         <div class="menu-items">
-            <div class="section-title">Mains</div>
+            <div class="menu-section">
+                <div class="section-title">Mains</div>
                 <ul>
                     <li>Tilapia & Sauce</li>
                     <li>Beef & Chips</li>
                     <li>Chicken Stew</li>
-                    <li>Mutton Stir Fry</li>
                     <li>Wheat Flour Chapati & Mandazis</li>
                     <li>Grilled Salmon</li>
-                    <li>Fried Chicken</li>
-                    <li>Grilled Chicken</li>
-                    <li>Roast Beef</li>
                     <li>Steak</li>
-                    <li>Spaghetti Bolognese</li>
-                    <li>Lasagna</li>
-                    <li>Mac and Cheese</li>
-                    <li>Chicken Alfredo</li>
-                    <li>Fish and Chips</li>
-                    <li>Sushi</li>
-                    <li>Tacos</li>
-                    <li>Burrito</li>
-                    <li>Quesadilla</li>
-                    <li>Shawarma</li>
-                    <li>Caesar Salad</li>
-                    <li>Greek Salad</li>
-                    <li>Coleslaw</li>
-                    <li>Mashed Potatoes</li>
-                    <li>Fried Rice</li>
-                    <li>Noodles</li>
-                    <li>Ramen</li>
-                    <li>Dumplings</li>
-                    <li>Spring Rolls</li>
-                    <li>Omelette</li>
-                    <li>Scrambled Eggs</li>
-                    <li>Grilled Cheese Sandwich</li>
-                    <li>Club Sandwich</li>
-                    <li>Chicken Wings</li>
-                    <li>BBQ Ribs</li>
-                    <li>Nachos</li>
-                    <li>Tomato Soup</li>
-                    <li>Chicken Soup</li>
                 </ul>
-        
-            
-            <div class="section-title">Snacks</div>
+            </div>
+
+            <div class="menu-section">
+                <div class="section-title">Snacks</div>
                 <ul>
                     <li>Pizza</li>
-                    <li>French fries</li>
+                    <li>French Fries</li>
                     <li>Onion Rings</li>
                     <li>Samosas</li>
                     <li>Pancakes</li>
                     <li>Waffles</li>
-                    <li>Sausages</li>
-                    <li>Chicken Wings</li>
-                    <li>Sliders</li>
-                    <li>Toasties</li>
-                    <li>Ice Cream</li>
-                    <li>Kebabs</li>
-                    <li>Salads</li>
                 </ul>
-            
-            <div class="section-title">Drinks</div>
+            </div>
+
+            <div class="menu-section">
+                <div class="section-title">Drinks</div>
                 <ul>
                     <li>Smoothies</li>
-                    <li> Lemonades</li>
+                    <li>Lemonades</li>
                     <li>Sodas</li>
                     <li>Iced Tea</li>
                     <li>Milkshakes</li>
                     <li>Fresh Juices</li>
                 </ul>
-                    <div class="section-title" style="font-size: 1rem;">Hot Drinks</div>
-                <ul>
-                    <li>Coffee(Black,Espresso,Latte,cappuccino)</li>
-                    <li>Tea(Black,Green,Herbal)</li>
-                    <li>Hot Chocolate</li>
-                </ul>
-                    <div class="section-title" style="font-size: 1rem;">Alcoholic Beverages</div>
-                <ul>
-                    <li>Beer</li>
-                    <li>Wine</li>
-                    <li>Cocktails</li>
-                </ul>
+            </div>
+        </div>
+
+        <div class="menu-actions">
+            <button class="view-menu-btn" onclick="toggleFullMenu()">View Full Menu</button>
         </div>
     </section>
+
+    <div id="fullMenuModal" class="full-menu-modal">
+        <div class="full-menu-body">
+            <div class="full-menu-header">
+                <h2>Full Menu</h2>
+                <button class="close-full-menu" onclick="toggleFullMenu()">&times;</button>
+            </div>
+            <div class="full-menu-list" onclick="addMenuItem(event)">
+                <div class="menu-section">
+                    <div class="section-title">Mains</div>
+                    <ul id="fullMenuMains"></ul>
+                </div>
+                <div class="menu-section">
+                    <div class="section-title">Snacks</div>
+                    <ul id="fullMenuSnacks"></ul>
+                </div>
+                <div class="menu-section">
+                    <div class="section-title">Drinks</div>
+                    <ul id="fullMenuDrinks"></ul>
+                </div>
+                <div class="menu-section">
+                    <div class="section-title">Hot Drinks</div>
+                    <ul id="fullMenuHotDrinks"></ul>
+                </div>
+                <div class="menu-section">
+                    <div class="section-title">Alcoholic Beverages</div>
+                    <ul id="fullMenuAlcoholic"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
    <div class="food-grid-section">
     <div class="food-title">Most Served</div>
@@ -173,7 +186,7 @@
             <p>Freshly cooked tilapia served with a rich and flavorful sauce.</p>
             <div class="food-grid-footer">
                 <div class="food-price">Ksh 2500<span>/plate</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Tilapia & Sauce" data-price="2500" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
         <div class="food-item">
@@ -184,7 +197,7 @@
             <p>Juicy beef served with crispy golden chips.</p>
             <div class="food-grid-footer">
                 <div class="food-price">Ksh 1800<span>/plate</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Beef & Chips" data-price="1800" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
         <div class="food-item">
@@ -192,7 +205,7 @@
             <p>Soft and fluffy chapati served with sweet mandazis.</p>
             <div class="food-grid-footer">
                 <div class="food-price">Ksh 60<span>/piece</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Wheat Flour Chapati" data-price="60" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
         <div class="food-item">
@@ -200,7 +213,7 @@
             <p>Aromatic spaghetti tossed in a savory sauce with fresh vegetables.</p>
             <div class="food-grid-footer">
                 <div class="food-price">Ksh 600<span>/plate</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Sauced Spaghetti" data-price="600" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
         <div class="food-item">
@@ -211,7 +224,7 @@
             <p>Delicious coleslaw dressing made with fresh vegetables.</p>
             <div class="food-grid-footer">
                 <div class="food-price">Ksh 200<span>/plate</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Coleslaw Dressing" data-price="200" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
         <div class="food-item">
@@ -222,7 +235,7 @@
             <p>Delicious Dagaa recipe with ugali.</p>
             <div class="food-grid-footer">
                 <div class="food-price">Ksh 350<span>/plate</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Dagaa Recipe" data-price="350" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
         <div class="food-item">
@@ -230,9 +243,17 @@
             <p>Don't miss out on this delicious and healthy option!</p>
             <div class="food-grid-footer">
                 <div class="food-price">Ksh 300<span>/plate</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Broccoli Vegies" data-price="300" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
+    </div>
+
+    <div class="custom-order-card">
+        <h3>Describe your order</h3>
+        <p>Tell us exactly what you want and we will add it to your cart.</p>
+        <textarea id="customOrderInput" placeholder="e.g. 2 spicy chicken wraps with extra sauce"></textarea>
+        <button class="custom-order-btn" onclick="addCustomOrder()">Add Custom Order</button>
+        <div id="orderStatus" class="order-status"></div>
     </div>
 </div>
 <section class="drinks-section" id="drinks">
@@ -248,7 +269,7 @@
             <p>A delicious blend of Oreo cookies, milk, and a touch of vanilla.</p>
             <div class="drink-footer">
                 <div class="drink-price">Ksh 550<span>/glass</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Oreo Milkshake" data-price="550" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
 
@@ -258,7 +279,7 @@
             <p>Indulge in our creamy and delicious ice cream, available in a variety
             <div class="drink-footer">
                 <div class="drink-price">Ksh 320<span>/glass</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Ice Cream" data-price="320" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
 
@@ -268,7 +289,7 @@
             <p>A classic margarita made with tequila, lime juice, and a touch of sweetness.</p>
             <div class="drink-footer">
                 <div class="drink-price">Ksh 250<span>/glass</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Margarita" data-price="250" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
     </div>
@@ -282,7 +303,7 @@
             <p>Enjoy this refreshing blend of spirits and citrus flavors.</p>
             <div class="drink-footer">
                 <div class="drink-price">Ksh 300<span>/glass</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Blue Long Island Iced Tea" data-price="300" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
 
@@ -292,7 +313,7 @@
             <p>A refreshing blend of mint and chocolate in a cold brew coffee.</p>
             <div class="drink-footer">
                 <div class="drink-price">Ksh 250<span>/glass</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Mint Chocolate Cold Brew Coffee" data-price="250" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
 
@@ -300,7 +321,7 @@
             <img src="images/gingerbread.jpeg" alt="Gingerbread Black Tea Latte">
             <div class="drink-footer">
                 <div class="drink-price">Ksh 400<span>/glass</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Gingerbread Black Tea Latte" data-price="400" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
     </div>
@@ -314,7 +335,7 @@
             <p>A refreshing blend of strawberries and a touch of sweetness.</p>
             <div class="drink-footer">
                 <div class="drink-price">Ksh 5,350<span>/bottle</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Malibu Strawberry Spritz Cocktail" data-price="5350" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
 
@@ -324,7 +345,7 @@
             <p>Enjoy the rich and smooth flavor of Jack Daniels whiskey.</p>
             <div class="drink-footer">
                 <div class="drink-price">Ksh 6,100<span>/bottle</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Jack Daniels" data-price="6100" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
 
@@ -334,7 +355,7 @@
             <p>We got you covered with even more premium whiskeys.</p>
             <div class="drink-footer">
                 <div class="drink-price">Ksh 18,100<span>/bottle</span></div>
-                <button class="add-btn">+</button>
+                <button class="add-btn" data-name="Bourbon Whiskeys" data-price="18100" onclick="addToCart(event)">Add to Order</button>
             </div>
         </div>
     </div>
@@ -350,7 +371,7 @@
         <p>A delicious blend of cheesy goodness and savory BBQ chicken.</p>
         <div class="special-footer">
             <div class="special-price">Ksh 1100<span>/plate</span></div>
-            <button class="add-btn">+</button>
+            <button class="add-btn" data-name="Cheesy BBQ Chicken Pizza" data-price="1100" onclick="addToCart(event)">Add to Order</button>
         </div>
     </div>
     <div class="special-item">
@@ -359,7 +380,7 @@
         <p>Succulent roasted duck cooked in a rich and flavorful wine sauce.</p>
         <div class="special-footer">
             <div class="special-price">Ksh 2800<span>/plate</span></div>
-            <button class="add-btn">+</button>
+            <button class="add-btn" data-name="Roasted Duck in Wine" data-price="2800" onclick="addToCart(event)">Add to Order</button>
         </div>
     </div>
     <div class="special-item">
@@ -368,7 +389,7 @@
         <p>Delicious spicy chicken wrapped in a crispy tortilla.</p>
         <div class="special-footer">
             <div class="special-price">Ksh 1200<span>/plate</span></div>
-            <button class="add-btn">+</button>
+            <button class="add-btn" data-name="Spicy Chicken Wraps" data-price="1200" onclick="addToCart(event)">Add to Order</button>
         </div>
     </div>
      <div class="special-item">
@@ -377,7 +398,7 @@
         <p>Delicious creamy herb chicken served with roasted potatoes.</p>
         <div class="special-footer">
             <div class="special-price">Ksh 1800<span>/plate</span></div>
-            <button class="add-btn">+</button>
+            <button class="add-btn" data-name="Creamy Herb Chicken & Potatoes" data-price="1800" onclick="addToCart(event)">Add to Order</button>
         </div>
     </div>
 </section>
@@ -486,6 +507,19 @@
         <div>🍽</div>
     </div>
 </footer>
+
+<div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+        <h3>Your Cart</h3>
+        <ul class="cart-items">
+            
+        </ul>
+        <div class="cart-total">
+            <strong>Total: KSh <span id="cartTotal">0.00</span></strong>
+        </div>
+        <button class="btn-checkout">Checkout</button>
+    </div>
+</div>
 <script>
 const animateItems = document.querySelectorAll('.food-item, .drink-item, .special-item, .stats');
 
@@ -506,5 +540,7 @@ animateItems.forEach((item, index) => {
 });
 
 </script>
+
+<script src="script.js"></script>
 </body>
 </html>
