@@ -14,6 +14,34 @@ function addToCart(event) {
     console.log('Current cart:', cart);
     updateCartCount();
     displayCart();
+    showNotification(`${itemName} added to cart!`);
+}
+
+function showNotification(message) {
+    // Remove existing notification if present
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    // Trigger animation
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
 }
 
 function updateCartCount() {
@@ -202,16 +230,15 @@ function addMenuItem(event) {
     cart.push(item);
     updateCartCount();
     displayCart();
-    setOrderStatus(`${itemName} added to cart.`);
+    showNotification(`${itemName} added to cart!`);
 }
 
 function addCustomOrder() {
     const input = document.getElementById('customOrderInput');
     const description = input ? input.value.trim() : '';
-    const status = document.getElementById('orderStatus');
 
     if (!description) {
-        setOrderStatus('Please describe your custom order before adding it.', true);
+        showNotification('Please describe your custom order!');
         return;
     }
 
@@ -223,7 +250,7 @@ function addCustomOrder() {
     updateCartCount();
     displayCart();
     if (input) input.value = '';
-    setOrderStatus('Custom order added to cart.');
+    showNotification('Custom order added to cart!');
 }
 
 function setOrderStatus(message, isError = false) {
